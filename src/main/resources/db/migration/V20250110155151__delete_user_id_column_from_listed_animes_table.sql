@@ -1,0 +1,1 @@
+ALTER TABLE listed_animes DROP COLUMN user_id;

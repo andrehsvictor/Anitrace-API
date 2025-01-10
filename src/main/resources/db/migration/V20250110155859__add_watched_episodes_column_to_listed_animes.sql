@@ -1,0 +1,1 @@
+ALTER TABLE listed_animes ADD COLUMN watched_episodes INT DEFAULT 0;
