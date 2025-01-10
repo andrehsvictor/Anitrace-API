@@ -1,0 +1,25 @@
+services:
+  postgres:
+    container_name: anitrace-postgres
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - anitrace-network
+    restart: on-failure
+
+  redis:
+    container_name: anitrace-redis
+    image: redis
+    ports:
+      - ${REDIS_PORT:-6379}:6379
+    networks:
+      - anitrace-network
+    restart: on-failure
+
+networks:
+  anitrace-network:
+    driver: bridge
+    name: anitrace-network
