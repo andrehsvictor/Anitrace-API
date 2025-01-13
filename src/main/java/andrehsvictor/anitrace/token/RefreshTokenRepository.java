@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RefreshTokenStorageService {
+public class RefreshTokenRepository {
 
     private final RedisTemplate<String, Integer> redisTemplate;
 
@@ -24,11 +24,11 @@ public class RefreshTokenStorageService {
         redisTemplate.opsForValue().set(refreshToken.getId(), REFRESH_TOKEN_VALUE, ttl);
     }
 
-    public boolean exists(Jwt refreshToken) {
-        return redisTemplate.hasKey(REFRESH_TOKEN_PREFIX + refreshToken.getId());
+    public boolean existsById(String id) {
+        return redisTemplate.hasKey(REFRESH_TOKEN_PREFIX + id);
     }
 
-    public void delete(Jwt refreshToken) {
-        redisTemplate.delete(REFRESH_TOKEN_PREFIX + refreshToken.getId());
+    public void deleteById(String id) {
+        redisTemplate.delete(REFRESH_TOKEN_PREFIX + id);
     }
 }

@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RevokedTokenStorageService {
+public class RevokedTokenRepository {
 
     private final RedisTemplate<String, Integer> redisTemplate;
 
@@ -24,12 +24,12 @@ public class RevokedTokenStorageService {
         redisTemplate.opsForValue().set(revokedToken.getId(), REVOKED_TOKEN_VALUE, ttl);
     }
 
-    public boolean exists(Jwt revokedToken) {
-        return redisTemplate.hasKey(REVOKED_TOKEN_PREFIX + revokedToken.getId());
+    public boolean existsById(String id) {
+        return redisTemplate.hasKey(REVOKED_TOKEN_PREFIX + id);
     }
 
-    public void delete(Jwt revokedToken) {
-        redisTemplate.delete(REVOKED_TOKEN_PREFIX + revokedToken.getId());
+    public void deleteById(String id) {
+        redisTemplate.delete(REVOKED_TOKEN_PREFIX + id);
     }
 
 }

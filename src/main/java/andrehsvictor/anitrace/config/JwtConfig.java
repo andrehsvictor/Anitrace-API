@@ -23,7 +23,6 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
-import andrehsvictor.anitrace.jwt.RevokedTokenValidator;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +39,7 @@ public class JwtConfig {
     @Value("${anitrace.security.jwt.private-key-file}")
     private RSAPrivateKey privateKey;
 
-    private final RevokedTokenValidator revokedTokenValidator;
+    private final List<OAuth2TokenValidator<Jwt>> jwtValidators;
 
     @Bean
     JwtEncoder jwtEncoder() {
@@ -57,7 +56,7 @@ public class JwtConfig {
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withPublicKey(publicKey).build();
 
         OAuth2TokenValidator<Jwt> validators = JwtValidators
-                .createDefaultWithValidators(List.of(revokedTokenValidator));
+                .createDefaultWithValidators(jwtValidators);
 
         jwtDecoder.setJwtValidator(validators);
         return jwtDecoder;
