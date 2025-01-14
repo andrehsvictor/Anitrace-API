@@ -1,0 +1,11 @@
+${AnsiColor.BRIGHT_MAGENTA}
+      __       _____  ___     __      ___________    _______         __        ______     _______  
+     /""\     (\"   \|"  \   |" \    ("     _   ")  /"      \       /""\      /" _  "\   /"     "| 
+    /    \    |.\\   \    |  ||  |    )__/  \\__/  |:        |     /    \    (: ( \___) (: ______) 
+   /' /\  \   |: \.   \\  |  |:  |       \\_ /     |_____/   )    /' /\  \    \/ \       \/    |   
+  //  __'  \  |.  \    \. |  |.  |       |.  |      //      /    //  __'  \   //  \ _    // ___)_  
+ /   /  \\  \ |    \    \ |  /\  |\      \:  |     |:  __   \   /   /  \\  \ (:   _) \  (:      "| 
+(___/    \___) \___|\____\) (__\_|_)      \__|     |__|  \___) (___/    \___) \_______)  \_______)${AnsiColor.BRIGHT_BLACK} ${anitrace.version}
+
+${AnsiColor.BRIGHT_WHITE}Powered by ${AnsiColor.GREEN}${AnsiStyle.BOLD}Spring Boot v${spring-boot.version}
+${AnsiColor.DEFAULT}${AnsiStyle.NORMAL}

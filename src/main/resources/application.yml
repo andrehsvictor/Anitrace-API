@@ -31,3 +31,4 @@ anitrace:
     cors:
       allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
       allowed-methods: ${CORS_ALLOWED_METHODS:*}
+  version: @project.version@

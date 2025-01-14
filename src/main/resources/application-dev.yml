@@ -3,3 +3,6 @@ spring:
     compose:
       enabled: ${DOCKER_COMPOSE_ENABLED:true}
       file: docker-compose.dev.yml
+
+anitrace:
+  version: (dev)
