@@ -8,17 +8,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ErrorDto<T> {
+public class ErrorsDto<T> {
     private List<T> errors = new ArrayList<>();
 
-    public static <T> ErrorDto<T> ofOne(T error) {
-        ErrorDto<T> errorDto = new ErrorDto<>();
+    public static <T> ErrorsDto<T> ofOne(T error) {
+        ErrorsDto<T> errorDto = new ErrorsDto<>();
         errorDto.getErrors().add(error);
         return errorDto;
     }
 
-    public static ErrorDto<String> ofMessage(String message) {
-        ErrorDto<String> errorDto = new ErrorDto<>();
+    public static ErrorsDto<String> ofMessage(String message) {
+        ErrorsDto<String> errorDto = new ErrorsDto<>();
         errorDto.getErrors().add(message);
         return errorDto;
     }
