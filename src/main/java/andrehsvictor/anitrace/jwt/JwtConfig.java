@@ -1,4 +1,4 @@
-package andrehsvictor.anitrace.config;
+package andrehsvictor.anitrace.jwt;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -32,11 +32,11 @@ import lombok.RequiredArgsConstructor;
 public class JwtConfig {
 
     @NotNull(message = "anitrace.security.jwt.public-key-file must be set")
-    @Value("${anitrace.security.jwt.public-key-file}")
+    @Value("${anitrace.security.jwt.public-key.path:file:.keys/public.pem}")
     private RSAPublicKey publicKey;
 
     @NotNull(message = "anitrace.security.jwt.private-key-file must be set")
-    @Value("${anitrace.security.jwt.private-key-file}")
+    @Value("${anitrace.security.jwt.private-key.path:file:.keys/private.pem}")
     private RSAPrivateKey privateKey;
 
     private final List<OAuth2TokenValidator<Jwt>> jwtValidators;
