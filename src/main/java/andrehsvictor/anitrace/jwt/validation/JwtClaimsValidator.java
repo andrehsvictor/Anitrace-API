@@ -20,7 +20,6 @@ public class JwtClaimsValidator implements OAuth2TokenValidator<Jwt> {
             "sub",
             "aud",
             "iss",
-            "exp",
             "iat",
             "jti",
             "type");
