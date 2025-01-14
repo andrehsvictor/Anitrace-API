@@ -24,5 +24,10 @@ anitrace:
           lifespan: ${ACCESS_TOKEN_LIFESPAN:15m}
         refresh-token:
           lifespan: ${REFRESH_TOKEN_LIFESPAN:1d}
-        public-key-file: ${PUBLIC_KEY_FILE:file:.keys/public.pem}
-        private-key-file: ${PRIVATE_KEY_FILE:file:.keys/private.pem}
+        public-key:
+          path: ${PUBLIC_KEY_PATH:file:.keys/public.pem}
+        private-key:
+          path: ${PRIVATE_KEY_PATH:file:.keys/private.pem}
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
+      allowed-methods: ${CORS_ALLOWED_METHODS:*}
