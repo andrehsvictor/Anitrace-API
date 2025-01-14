@@ -17,21 +17,15 @@ public class AnitraceApplication {
 	};
 
 	public static void main(String[] args) throws IOException {
-		getGetPermission();
-		generateRsaKeyPair();
+		run(getPermissionCommand);
+		run(generateKeyPairCommand);
 		SpringApplication.run(AnitraceApplication.class, args);
 	}
 
-	private static void generateRsaKeyPair() throws IOException {
-		ProcessBuilder generateKeyPairProcessBuilder = new ProcessBuilder();
-		generateKeyPairProcessBuilder.command(generateKeyPairCommand);
-		generateKeyPairProcessBuilder.start();
-	}
-
-	private static void getGetPermission() throws IOException {
-		ProcessBuilder getPermissionProcessBuilder = new ProcessBuilder();
-		getPermissionProcessBuilder.command(getPermissionCommand);
-		getPermissionProcessBuilder.start();
+	public static void run(String[] command) throws IOException {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		processBuilder.command(command);
+		processBuilder.start();
 	}
 
 }
