@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import andrehsvictor.anitrace.account.dto.AccountDto;
 import andrehsvictor.anitrace.account.dto.CreateAccountDto;
 import andrehsvictor.anitrace.account.dto.EditAccountDto;
+import andrehsvictor.anitrace.exception.ResourceConflictException;
 import andrehsvictor.anitrace.user.User;
 import andrehsvictor.anitrace.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class AccountService {
     private final AccountMapper accountMapper;
 
     public AccountDto create(CreateAccountDto createAccountDto) {
+        if (userService.existsByUsername(createAccountDto.getUsername())) {
+            throw new ResourceConflictException("Username already exists");
+        }
+        if (userService.existsByEmail(createAccountDto.getEmail())) {
+            throw new ResourceConflictException("Email already exists");
+        }
         User user = accountMapper.createAccountDtoToUser(createAccountDto);
         String encodedPassword = passwordEncoder.encode(createAccountDto.getPassword());
         user.setPassword(encodedPassword);

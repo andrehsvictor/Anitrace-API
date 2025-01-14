@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import andrehsvictor.anitrace.exception.ResourceConflictException;
 import andrehsvictor.anitrace.exception.ResourceNotFoundException;
 import andrehsvictor.anitrace.exception.dto.ErrorsDto;
 import andrehsvictor.anitrace.exception.dto.FieldErrorDto;
@@ -47,6 +48,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             errorsDto.getErrors().add(fieldErrorDto);
         });
         return ResponseEntity.badRequest().body(errorsDto);
+    }
+
+    @ExceptionHandler(ResourceConflictException.class)
+    public final ResponseEntity<ErrorsDto<String>> handleResourceConflictException(ResourceConflictException ex) {
+        return ResponseEntity.status(409).body(ErrorsDto.ofMessage(ex.getMessage()));
     }
 
 }
