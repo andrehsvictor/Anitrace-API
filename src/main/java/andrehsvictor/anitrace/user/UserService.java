@@ -2,7 +2,7 @@ package andrehsvictor.anitrace.user;
 
 import java.util.UUID;
 
-import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final SecurityContext securityContext;
 
     public boolean existsById(UUID id) {
         return userRepository.existsById(id);
@@ -26,7 +25,7 @@ public class UserService {
     }
 
     public UUID getAuthenticatedUserUuid() {
-        Jwt jwt = ((JwtAuthenticationToken) securityContext.getAuthentication()).getToken();
+        Jwt jwt = ((JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication()).getToken();
         return UUID.fromString(jwt.getSubject());
     }
 
