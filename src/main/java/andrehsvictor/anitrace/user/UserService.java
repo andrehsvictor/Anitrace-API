@@ -2,12 +2,15 @@ package andrehsvictor.anitrace.user;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import andrehsvictor.anitrace.exception.ResourceNotFoundException;
+import andrehsvictor.anitrace.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -15,6 +18,19 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    public Page<UserDto> toDto(Page<User> users) {
+        return users.map(userMapper::userToUserDto);
+    }
+
+    public UserDto toDto(User user) {
+        return userMapper.userToUserDto(user);
+    }
+
+    public Page<User> getAll(String query, Pageable pageable) {
+        return userRepository.findAll(query, pageable);
+    }
 
     public boolean existsById(UUID id) {
         return userRepository.existsById(id);
