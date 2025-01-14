@@ -1,0 +1,1 @@
+ALTER TABLE users DROP COLUMN watched_animes_count;
