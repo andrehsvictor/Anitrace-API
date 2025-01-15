@@ -10,6 +10,7 @@ import andrehsvictor.anitrace.exception.ForbiddenOperationException;
 import andrehsvictor.anitrace.exception.ResourceNotFoundException;
 import andrehsvictor.anitrace.list.dto.CreateListDto;
 import andrehsvictor.anitrace.list.dto.EditListDto;
+import andrehsvictor.anitrace.list.dto.ListDto;
 import andrehsvictor.anitrace.user.User;
 import andrehsvictor.anitrace.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,14 @@ public class ListService {
     private final UserService userService;
     private final ListMapper listMapper;
 
+    public ListDto toDto(AnitraceList list) {
+        return listMapper.listToListDto(list);
+    }
+
+    public Page<ListDto> toDto(Page<AnitraceList> lists) {
+        return lists.map(this::toDto);
+    }
+
     public AnitraceList create(CreateListDto createListDto) {
         AnitraceList list = listMapper.createListDtoToList(createListDto);
         UUID userId = userService.getAuthenticatedUserUuid();
@@ -31,11 +40,12 @@ public class ListService {
     }
 
     public Page<AnitraceList> getAllByUserId(UUID userId, String query, Pageable pageable) {
-        UUID authenticatedUserId = userService.getAuthenticatedUserUuid();
-        if (userId.equals(authenticatedUserId)) {
-            return listRepository.findAllByUserId(userId, query, pageable);
-        }
         return listRepository.findAllByUserIdAndVisibility(userId, query, ListVisibility.PUBLIC, pageable);
+    }
+
+    public Page<AnitraceList> getAllByAuthenticatedUser(String query, Pageable pageable) {
+        UUID userId = userService.getAuthenticatedUserUuid();
+        return listRepository.findAllByUserId(userId, query, pageable);
     }
 
     public AnitraceList getById(UUID id) {
