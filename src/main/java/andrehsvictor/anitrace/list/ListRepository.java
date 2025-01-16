@@ -10,14 +10,14 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ListRepository extends JpaRepository<AnitraceList, UUID> {
 
-    @Query("SELECT l FROM AnitraceList l" +
+    @Query("SELECT l FROM List l" +
             " WHERE l.user.id = :userId" +
             " AND (:query IS NULL OR l.name ILIKE %:query% OR l.description ILIKE %:query%)")
     Page<AnitraceList> findAllByUserId(UUID userId, String query, Pageable pageable);
 
     Optional<AnitraceList> findByIdAndUserIdOrVisibility(UUID id, UUID userId, ListVisibility visibility);
 
-    @Query("SELECT l FROM AnitraceList l" +
+    @Query("SELECT l FROM List l" +
             " WHERE l.user.id = :userId" +
             " AND (:query IS NULL OR l.name ILIKE %:query% OR l.description ILIKE %:query%)" +
             " AND l.visibility = :visibility")
