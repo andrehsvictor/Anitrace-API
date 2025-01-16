@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import andrehsvictor.anitrace.anime.AnimeService;
 import andrehsvictor.anitrace.anime.dto.AnimeDto;
 import andrehsvictor.anitrace.exception.BadRequestException;
+import andrehsvictor.anitrace.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import net.sandrohc.jikan.Jikan;
 import net.sandrohc.jikan.exception.JikanQueryException;
@@ -32,7 +33,7 @@ public class JikanAnimeService implements AnimeService {
         if (pageable.getSort().isSorted()) {
             animeOrderBy = AnimeOrderBy.valueOf(pageable.getSort().toList().get(0).getProperty().toLowerCase());
             sortOrder = pageable.getSort().toList().get(0).isAscending() ? SortOrder.ASCENDING : SortOrder.DESCENDING;
-            if (animeOrderBy == null) {
+            if (animeOrderBy == null || sortOrder == null) {
                 throw new BadRequestException("Invalid sort property");
             }
         } else {
@@ -53,14 +54,25 @@ public class JikanAnimeService implements AnimeService {
             Page<AnimeDto> animesPage = new PageImpl<>(animeDtos, pageable, animes.size());
             return animesPage;
         } catch (JikanQueryException e) {
-            throw new RuntimeException("Failed to fetch anime list", e);
+            throw new RuntimeException("Failed to fetch animes", e);
         }
     }
 
     @Override
-    public AnimeDto getById(Integer animeId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public AnimeDto getById(Integer id) {
+        try {
+            Anime anime = jikan.query()
+                    .anime()
+                    .get(id)
+                    .execute()
+                    .block();
+            if (anime == null) {
+                throw new ResourceNotFoundException(Anime.class, "MyAnimeList ID", id);
+            }
+            return mapper.animeToAnimeDto(anime);
+        } catch (JikanQueryException e) {
+            throw new RuntimeException("Failed to fetch anime", e);
+        }
     }
 
 }
