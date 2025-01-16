@@ -1,0 +1,2 @@
+ALTER TABLE listed_animes
+    ALTER COLUMN score TYPE FLOAT USING score::FLOAT;
