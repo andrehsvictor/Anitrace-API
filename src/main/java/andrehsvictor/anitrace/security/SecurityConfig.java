@@ -47,7 +47,8 @@ public class SecurityConfig {
     };
 
     private static final String[] ALLOWED_PATHS_WITH_GET_METHOD = {
-
+        "/api/v1/animes",
+        "/api/v1/animes/**",
     };
 
     private static final String[] ALLOWED_PATHS_WITH_POST_METHOD = {
