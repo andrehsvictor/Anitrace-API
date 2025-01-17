@@ -55,8 +55,14 @@ public class JikanAnimeService implements AnimeService {
                     .execute()
                     .collectList()
                     .block();
+            Long total = jikan.query()
+                    .anime()
+                    .search()
+                    .execute()
+                    .count()
+                    .block();
             List<AnimeDto> animeDtos = animes.stream().map(mapper::animeToAnimeDto).toList();
-            Page<AnimeDto> animesPage = new PageImpl<>(animeDtos, pageable, animes.size());
+            Page<AnimeDto> animesPage = new PageImpl<>(animeDtos, pageable, total);
             return animesPage;
         } catch (JikanQueryException e) {
             throw new RuntimeException("Failed to fetch animes", e);
