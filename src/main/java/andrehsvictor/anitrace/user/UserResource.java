@@ -27,4 +27,9 @@ public class UserResource {
     public UserDto getById(@PathVariable UUID id) {
         return userService.toDto(userService.getById(id));
     }
+
+    @GetMapping("/api/v1/users/me")
+    public UserDto getMe() {
+        return userService.toDto(userService.getMe());
+    }
 }

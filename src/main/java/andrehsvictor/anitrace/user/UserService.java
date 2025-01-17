@@ -28,6 +28,10 @@ public class UserService {
         return userMapper.userToUserDto(user);
     }
 
+    public User getMe() {
+        return getById(getAuthenticatedUserUuid());
+    }
+
     public Page<User> getAll(String query, Pageable pageable) {
         return userRepository.findAll(query, pageable);
     }
