@@ -28,10 +28,15 @@ public class JikanAnimeService implements AnimeService {
 
     @Override
     public Page<AnimeDto> getAll(Pageable pageable) {
-        AnimeOrderBy animeOrderBy;
-        SortOrder sortOrder;
+        AnimeOrderBy animeOrderBy = AnimeOrderBy.POPULARITY;
+        SortOrder sortOrder = SortOrder.DESCENDING;
         if (pageable.getSort().isSorted()) {
-            animeOrderBy = AnimeOrderBy.valueOf(pageable.getSort().toList().get(0).getProperty().toLowerCase());
+            for (AnimeOrderBy orderBy : AnimeOrderBy.values()) {
+                if (orderBy.name().equalsIgnoreCase(pageable.getSort().toList().get(0).getProperty())) {
+                    animeOrderBy = orderBy;
+                    break;
+                }
+            }
             sortOrder = pageable.getSort().toList().get(0).isAscending() ? SortOrder.ASCENDING : SortOrder.DESCENDING;
             if (animeOrderBy == null || sortOrder == null) {
                 throw new BadRequestException("Invalid sort property");
