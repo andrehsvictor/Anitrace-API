@@ -55,7 +55,7 @@ public class ListedAnime implements Serializable {
     private LocalDate finishedAt;
 
     @Column(name = "episodes_watched_count")
-    private Integer episodesWatched;
+    private Integer episodesWatched = 0;
 
     private Integer totalEpisodes;
 

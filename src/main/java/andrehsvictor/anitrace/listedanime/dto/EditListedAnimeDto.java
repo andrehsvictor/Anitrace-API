@@ -4,17 +4,14 @@ import java.math.BigDecimal;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ListAnimeDto {
-
-    @NotNull(message = "Anime ID is required")
-    private Integer animeId;
+public class EditListedAnimeDto {
+    private Boolean favorite;
 
     @Pattern(regexp = "^(PLAN_TO_WATCH|WATCHING|COMPLETED|DROPPED|ON_HOLD)$", message = "Invalid status")
     private String status;
@@ -30,5 +27,5 @@ public class ListAnimeDto {
     private String finishedAt;
 
     private Integer episodesWatched;
-    private boolean favorite;
+
 }
