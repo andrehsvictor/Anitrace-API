@@ -23,7 +23,10 @@ anitrace:
         access-token:
           lifespan: ${ACCESS_TOKEN_LIFESPAN:15m}
         refresh-token:
+          enabled: ${REFRESH_TOKEN_ENABLED:true}
           lifespan: ${REFRESH_TOKEN_LIFESPAN:1d}
+        token-revocation:
+          enabled: ${TOKEN_REVOCATION_ENABLED:true}
         public-key:
           path: ${PUBLIC_KEY_PATH:file:.keys/public.pem}
         private-key:
