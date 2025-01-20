@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TokenService {
 
-    private final RefreshTokenRepository refreshTokenRepository;
     private final RevokedTokenRepository revokedTokenRepository;
     private final JwtService jwtService;
     private final AuthenticationService authenticationService;
@@ -32,7 +31,7 @@ public class TokenService {
 
     public AccessTokenDto refresh(TokenDto tokenDto) {
         Jwt refreshToken = jwtService.decode(tokenDto.getToken());
-        refreshTokenRepository.deleteById(refreshToken.getId());
+        revokedTokenRepository.save(refreshToken);
         return accessTokenDto(refreshToken.getSubject());
     }
 
@@ -44,7 +43,6 @@ public class TokenService {
     private AccessTokenDto accessTokenDto(String subject) {
         Jwt accessToken = jwtService.issueAccessToken(subject);
         Jwt refreshToken = jwtService.issueRefreshToken(subject);
-        refreshTokenRepository.save(refreshToken);
         Long expiresIn = accessToken.getExpiresAt().getEpochSecond() - accessToken.getIssuedAt().getEpochSecond();
         return AccessTokenDto.builder()
                 .accessToken(accessToken.getTokenValue())
