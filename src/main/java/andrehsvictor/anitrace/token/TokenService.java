@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import andrehsvictor.anitrace.authentication.AuthenticationService;
 import andrehsvictor.anitrace.authentication.dto.AuthenticationDto;
 import andrehsvictor.anitrace.jwt.JwtService;
+import andrehsvictor.anitrace.revokedtoken.RevokedTokenRepository;
 import andrehsvictor.anitrace.security.impl.UserDetailsImpl;
 import andrehsvictor.anitrace.token.dto.AccessTokenDto;
 import andrehsvictor.anitrace.token.dto.TokenDto;
