@@ -1,4 +1,4 @@
-package andrehsvictor.anitrace.revokedtoken;
+package andrehsvictor.anitrace.tokenrevocation;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -7,15 +7,14 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
-import andrehsvictor.anitrace.revokedtoken.RevokedTokenRepository;
-import andrehsvictor.anitrace.revokedtoken.RevokedTokenService;
+import andrehsvictor.anitrace.tokenrevocation.TokenRevocationService;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class RevokedJwtValidator implements OAuth2TokenValidator<Jwt> {
 
-    private final RevokedTokenService revokedTokenService;
+    private final TokenRevocationService revokedTokenService;
 
     @Override
     public OAuth2TokenValidatorResult validate(Jwt token) {
