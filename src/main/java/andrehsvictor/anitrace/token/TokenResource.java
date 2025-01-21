@@ -28,7 +28,7 @@ public class TokenResource {
         return tokenService.refresh(tokenDto);
     }
 
-    @PostMapping("/api/v1/token/revoke")
+    @DeleteMapping("/api/v1/token")
     public ResponseEntity<Void> revoke(@Valid @RequestBody TokenDto tokenDto) {
         tokenService.revoke(tokenDto);
         return ResponseEntity.noContent().build();
