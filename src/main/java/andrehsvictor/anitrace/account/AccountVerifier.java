@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AccountVerificator {
+public class AccountVerifier {
 
     private final AccountService accountService;
     private final UserService userService;

@@ -9,10 +9,6 @@ import andrehsvictor.anitrace.account.dto.AccountDto;
 import andrehsvictor.anitrace.account.dto.CreateAccountDto;
 import andrehsvictor.anitrace.account.dto.EditAccountDto;
 import andrehsvictor.anitrace.account.dto.SendActionEmailDto;
-import andrehsvictor.anitrace.actiontoken.ActionTokenService;
-import andrehsvictor.anitrace.actiontoken.ActionTokenType;
-import andrehsvictor.anitrace.actiontoken.dto.CreateActionTokenDto;
-import andrehsvictor.anitrace.email.EmailService;
 import andrehsvictor.anitrace.exception.ResourceConflictException;
 import andrehsvictor.anitrace.user.User;
 import andrehsvictor.anitrace.user.UserService;
@@ -25,7 +21,7 @@ public class AccountService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AccountMapper accountMapper;
-    private final AccountVerificator accountVerificator;
+    private final AccountVerifier accountVerifier;
 
     public AccountDto create(CreateAccountDto createAccountDto) {
         if (userService.existsByUsername(createAccountDto.getUsername())) {
@@ -63,7 +59,7 @@ public class AccountService {
     public void sendActionEmail(SendActionEmailDto sendActionEmailDto) {
         switch (sendActionEmailDto.getAction()) {
             case "VERIFY_EMAIL":
-                accountVerificator.sendVerificationEmail(sendActionEmailDto);
+                accountVerifier.sendVerificationEmail(sendActionEmailDto);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid action");
