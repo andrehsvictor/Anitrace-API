@@ -38,6 +38,8 @@ anitrace:
           path: ${PUBLIC_KEY_PATH:file:.keys/public.pem}
         private-key:
           path: ${PRIVATE_KEY_PATH:file:.keys/private.pem}
+      action-token:
+        lifespan: ${ACTION_TOKEN_LIFESPAN:1h}
     cors:
       allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
       allowed-methods: ${CORS_ALLOWED_METHODS:*}
