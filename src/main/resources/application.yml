@@ -25,7 +25,7 @@ anitrace:
         refresh-token:
           enabled: ${REFRESH_TOKEN_ENABLED:true}
           lifespan: ${REFRESH_TOKEN_LIFESPAN:1d}
-        token-revocation:
+        revocation:
           enabled: ${TOKEN_REVOCATION_ENABLED:true}
         public-key:
           path: ${PUBLIC_KEY_PATH:file:.keys/public.pem}
