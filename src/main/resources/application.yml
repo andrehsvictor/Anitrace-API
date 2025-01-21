@@ -15,6 +15,13 @@ spring:
     redis:
       port: ${REDIS_PORT}
 
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+          
+
 anitrace:
   security:
     token:
