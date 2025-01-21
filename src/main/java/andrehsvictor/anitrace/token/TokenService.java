@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import andrehsvictor.anitrace.authentication.AuthenticationService;
-import andrehsvictor.anitrace.authentication.dto.AuthenticationDto;
+import andrehsvictor.anitrace.authentication.dto.CredentialsDto;
 import andrehsvictor.anitrace.jwt.JwtService;
 import andrehsvictor.anitrace.security.impl.UserDetailsImpl;
 import andrehsvictor.anitrace.token.dto.AccessTokenDto;
@@ -22,8 +22,8 @@ public class TokenService {
     private final JwtService jwtService;
     private final AuthenticationService authenticationService;
 
-    public AccessTokenDto request(AuthenticationDto authenticationDto) {
-        Authentication authentication = authenticationService.authenticate(authenticationDto);
+    public AccessTokenDto request(CredentialsDto credentialsDto) {
+        Authentication authentication = authenticationService.authenticate(credentialsDto);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         String subject = user.getId().toString();

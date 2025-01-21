@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import andrehsvictor.anitrace.authentication.dto.AuthenticationDto;
+import andrehsvictor.anitrace.authentication.dto.CredentialsDto;
 import andrehsvictor.anitrace.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 
@@ -17,10 +17,10 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public Authentication authenticate(AuthenticationDto authenticationDto) {
+    public Authentication authenticate(CredentialsDto credentialsDto) {
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    authenticationDto.getUsername(), authenticationDto.getPassword());
+                    credentialsDto.getUsername(), credentialsDto.getPassword());
             return authenticationManager.authenticate(authenticationToken);
         } catch (DisabledException e) {
             throw new UnauthorizedException("Your email is not verified yet");

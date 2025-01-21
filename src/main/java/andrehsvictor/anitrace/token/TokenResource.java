@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import andrehsvictor.anitrace.authentication.dto.AuthenticationDto;
+import andrehsvictor.anitrace.authentication.dto.CredentialsDto;
 import andrehsvictor.anitrace.token.dto.AccessTokenDto;
 import andrehsvictor.anitrace.token.dto.TokenDto;
 import jakarta.validation.Valid;
@@ -19,8 +19,8 @@ public class TokenResource {
     private final TokenService tokenService;
 
     @PostMapping("/api/v1/token")
-    public AccessTokenDto request(@Valid @RequestBody AuthenticationDto authenticationDto) {
-        return tokenService.request(authenticationDto);
+    public AccessTokenDto request(@Valid @RequestBody CredentialsDto credentialsDto) {
+        return tokenService.request(credentialsDto);
     }
 
     @PostMapping("/api/v1/token/refresh")
