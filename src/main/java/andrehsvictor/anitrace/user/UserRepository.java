@@ -20,4 +20,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query("SELECT u FROM User u WHERE (:query IS NULL OR u.username ILIKE %:query% OR u.displayName ILIKE %:query%)")
     Page<User> findAll(String query, Pageable pageable);
 
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
+
 }

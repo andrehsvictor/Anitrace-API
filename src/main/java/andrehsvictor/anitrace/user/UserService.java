@@ -61,6 +61,11 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(User.class, "ID", id));
     }
 
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException(User.class, "email", email));
+    }
+
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
     }
