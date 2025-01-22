@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import andrehsvictor.anitrace.account.dto.AccountDto;
 import andrehsvictor.anitrace.account.dto.CreateAccountDto;
 import andrehsvictor.anitrace.account.dto.EditAccountDto;
+import andrehsvictor.anitrace.account.dto.SendActionEmailDto;
+import andrehsvictor.anitrace.token.dto.TokenDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +44,18 @@ public class AccountResource {
     @DeleteMapping("/api/v1/account")
     public ResponseEntity<Void> delete() {
         accountService.delete();
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/api/v1/account/send-action-email")
+    public ResponseEntity<Void> sendActionEmail(@Valid @RequestBody SendActionEmailDto sendActionEmailDto) {
+        accountService.sendActionEmail(sendActionEmailDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/api/v1/account/verify-email")
+    public ResponseEntity<Void> verifyEmail(@Valid @RequestBody TokenDto tokenDto) {
+        accountService.verifyEmail(tokenDto);
         return ResponseEntity.noContent().build();
     }
 }

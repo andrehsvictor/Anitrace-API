@@ -9,6 +9,7 @@ import andrehsvictor.anitrace.actiontoken.ActionTokenType;
 import andrehsvictor.anitrace.actiontoken.dto.CreateActionTokenDto;
 import andrehsvictor.anitrace.email.EmailService;
 import andrehsvictor.anitrace.email.dto.SendEmailDto;
+import andrehsvictor.anitrace.exception.BadRequestException;
 import andrehsvictor.anitrace.exception.ResourceConflictException;
 import andrehsvictor.anitrace.file.FileService;
 import andrehsvictor.anitrace.user.User;
@@ -46,6 +47,15 @@ public class AccountVerifier {
         sendEmailDto.setText(emailContent);
 
         emailService.send(sendEmailDto);
+    }
 
+    public void verifyEmail(String token) {
+        ActionToken actionToken = actionTokenService.getByToken(token);
+        if (actionToken.getType() != ActionTokenType.VERIFY_EMAIL) {
+            throw new BadRequestException("Invalid token type");
+        }
+        User user = userService.getById(actionToken.getUserId());
+        user.setEmailVerified(true);
+        userService.save(user);
     }
 }

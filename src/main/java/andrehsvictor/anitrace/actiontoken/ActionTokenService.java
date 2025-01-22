@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import andrehsvictor.anitrace.actiontoken.dto.CreateActionTokenDto;
+import andrehsvictor.anitrace.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,6 +28,11 @@ public class ActionTokenService {
         Long ttl = duration.getSeconds();
         actionToken.setTtl(ttl);
         return actionTokenRepository.save(actionToken);
+    }
+
+    public ActionToken getByToken(String token) {
+        return actionTokenRepository.findByToken(token)
+                .orElseThrow(() -> new ResourceNotFoundException(ActionToken.class, "token", token));
     }
 
     public boolean existsByUserIdAndType(UUID userId, ActionTokenType type) {

@@ -10,6 +10,7 @@ import andrehsvictor.anitrace.account.dto.CreateAccountDto;
 import andrehsvictor.anitrace.account.dto.EditAccountDto;
 import andrehsvictor.anitrace.account.dto.SendActionEmailDto;
 import andrehsvictor.anitrace.exception.ResourceConflictException;
+import andrehsvictor.anitrace.token.dto.TokenDto;
 import andrehsvictor.anitrace.user.User;
 import andrehsvictor.anitrace.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +65,10 @@ public class AccountService {
             default:
                 throw new IllegalArgumentException("Invalid action");
         }
+    }
+
+    public void verifyEmail(TokenDto tokenDto) {
+        accountVerifier.verifyEmail(tokenDto.getToken());
     }
 
 }
